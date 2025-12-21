@@ -3,14 +3,15 @@ from django.db.models import CharField, Index, ForeignKey, PROTECT, UniqueConstr
 
 
 class Region(BaseModel):
-    name = CharField(max_length=255)
-    prefix = CharField(max_length=200, db_index=True)
+    name = CharField(max_length=255, unique=True)
+    prefix = CharField(max_length=200, unique=True)
 
     class Meta:
         verbose_name = 'Viloyat'
         verbose_name_plural = 'Viloyatlar'
         indexes = [
             Index(fields=['name']),
+            Index(fields=['prefix']),
         ]
 
 

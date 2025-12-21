@@ -1,4 +1,4 @@
-from utils.base import BaseModel
+from utils.models.base import BaseModel
 from apps.directory.area.models import Region, District, PROTECT
 from django.db.models import CharField, ForeignKey, Index, TextField
 
