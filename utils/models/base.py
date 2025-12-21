@@ -24,7 +24,7 @@ class ActiveManager(models.Manager[T]):
     def get_queryset(self) -> ActiveQuerySet[T]:
         return ActiveQuerySet(self.model, using=self._db).active()
     
-    def all_with_inactive(self) -> ActiveQuerySet[_T]:
+    def all_with_inactive(self) -> ActiveQuerySet[T]:
         return ActiveQuerySet(self.model, using=self._db)
 
 
