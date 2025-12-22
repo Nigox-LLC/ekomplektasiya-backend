@@ -1,8 +1,13 @@
 from django.db import models
 from django.utils import timezone
 from utils.models.base import BaseModel
-from apps.documents.sales.common.enum import OrderType, CommunicationType
-
+from apps.documents.sales.common.enum import (
+    OrderType, CommunicationType, OrderProductType, PurposeType
+)
+from utils.common.path import (
+    posted_upload_path, word_order_upload_path, signed_word_order_upload_path, 
+    signed_pdf_order_upload_path, attachment_upload_path
+)
 
 class Order(BaseModel):
     main = models.ForeignKey(
@@ -71,10 +76,128 @@ class Order(BaseModel):
         ]
 
 
-
 class StatusOrder(BaseModel):
     order = models.ForeignKey(Order, on_delete=models.PROTECT)
     employee = models.ManyToManyField('staff.Employee')
     status = models.CharField(max_length=255)
 
 
+class PostedWebSite(BaseModel):
+    employee = models.ForeignKey(
+        'staff.Employee',
+        on_delete=models.PROTECT, related_name='employees',
+    )
+    file = models.FileField(
+        upload_to=posted_upload_path, null=True, blank=True
+    )
+
+
+class OrderProduct(BaseModel):
+    order = models.ForeignKey(Order, on_delete=models.PROTECT)
+    order_product_type = models.CharField(
+        choices=OrderProductType.choices, max_length=50
+    )
+    annual_plan = models.ForeignKey(
+        'plan.AnnualPlan', on_delete=models.PROTECT, 
+        null=True, blank=True
+    )
+    product_name = models.CharField(
+        max_length=500, null=True, blank=True
+    )
+    product_type = models.ForeignKey(
+        'product.ProductType', on_delete=models.PROTECT, 
+        null=True, blank=True
+    )
+    product_model = models.ForeignKey(
+        'product.ProductModel', on_delete=models.PROTECT, 
+        null=True, blank=True
+    )
+    size = models.ForeignKey(
+        'measurement.Size', on_delete=models.PROTECT, 
+        null=True, blank=True
+    )
+    unit = models.ForeignKey(
+        'measurement.Unit', on_delete=models.PROTECT, 
+        null=True, blank=True
+    )
+    quantity = models.FloatField()
+    comment = models.TextField(blank=True)
+    price_analysis_quantity = models.FloatField(default=0)
+    employee = models.ForeignKey(
+        'staff.Employee',
+        on_delete=models.PROTECT, related_name='employees',
+    )
+    posted_website = models.ForeignKey(
+        PostedWebSite, on_delete=models.PROTECT,
+        null=True, blank=True
+    )
+
+
+class WordOrder(BaseModel):
+    order = models.ForeignKey(Order, on_delete=models.PROTECT)
+    employee = models.ForeignKey(
+        'staff.Employee',
+        on_delete=models.PROTECT, related_name='employees',
+    )
+    category = models.ForeignKey(
+        'measurement.Category', on_delete=models.PROTECT, 
+        null=True, blank=True
+    )
+    file = models.FileField(
+        upload_to=word_order_upload_path, null=True, blank=True
+    )
+    is_approved = models.BooleanField(default=False)
+
+
+class SignedWordOrder(BaseModel):
+    word_order = models.ForeignKey(
+        WordOrder, on_delete=models.PROTECT
+    )
+    file_doc = models.FileField(
+        upload_to=signed_word_order_upload_path,
+        null=True, blank=True
+    )
+    file_pdf = models.FileField(
+        upload_to=signed_pdf_order_upload_path,
+        null=True, blank=True,
+    )
+    qr_data = models.CharField(
+        max_length=300, null=True, blank=True
+    )
+    employee = models.ForeignKey(
+        'staff.Employee',
+        on_delete=models.PROTECT, related_name='employees',
+    )
+
+
+class Officer(BaseModel):
+    order = models.ForeignKey(
+        Order, on_delete=models.PROTECT
+    ) 
+    employee = models.ForeignKey(
+        'staff.Employee',
+        on_delete=models.PROTECT, related_name='employees',
+    )
+    is_signed = models.BooleanField(default=False)
+    signed_date = models.DateTimeField(null=True, blank=True)
+    purpose = models.CharField(
+        choices=PurposeType.choices, max_length=25
+    )
+
+
+class Attachment(BaseModel):
+    order = models.ForeignKey(
+        Order, on_delete=models.PROTECT
+    ) 
+    employee = models.ForeignKey(
+        'staff.Employee',
+        on_delete=models.PROTECT, related_name='employees',
+    )
+    category = models.ForeignKey(
+        'measurement.Category', on_delete=models.PROTECT, 
+        null=True, blank=True
+    )
+    file = models.FileField(
+        upload_to=attachment_upload_path
+    )
+    
