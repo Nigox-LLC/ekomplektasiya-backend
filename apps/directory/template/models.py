@@ -12,6 +12,6 @@ class Template(BaseModel):
     category = models.ForeignKey(
         'measurement.Category', on_delete=models.PROTECT, 
     )
-    file = models.FieldFile(
+    file = models.FileField(
         upload_to=template_upload_path,
     )

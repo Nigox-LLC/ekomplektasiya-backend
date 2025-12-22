@@ -1,18 +1,61 @@
 import os
 import datetime
 
-def upload_path_media(base_folder: str):
-    def _upload_path(instance, filename):
-        today = datetime.date.today()
-        path = os.path.join(base_folder, str(today.year), str(today.month), str(today.day))
-        os.makedirs(path, exist_ok=True)
-        return os.path.join(path, filename)
-    return _upload_path
+
+def _build_path(base_folder: str, filename: str) -> str:
+    today = datetime.date.today()
+    return os.path.join(
+        base_folder,
+        str(today.year),
+        str(today.month),
+        str(today.day),
+        filename,
+    )
 
 
-posted_upload_path = upload_path_media("Document/SaytgaJoylash")
-word_order_upload_path = upload_path_media("Document/BuyurtmaWord")
-signed_word_order_upload_path = upload_path_media("Document/Tasdiklangan/Word")
-signed_pdf_order_upload_path = upload_path_media("Document/Tasdiklangan/Pdf")
-template_upload_path = upload_path_media("Andoza/")
-attachment_upload_path = upload_path_media("Document/QoshimchaFayllar/")
+def template_upload_path(instance, filename):
+    return _build_path("Andoza", filename)
+
+
+def posted_upload_path(instance, filename):
+    return _build_path("Document/SaytgaJoylash", filename)
+
+
+def word_order_upload_path(instance, filename):
+    return _build_path("Document/BuyurtmaWord", filename)
+
+
+def signed_word_order_upload_path(instance, filename):
+    return _build_path("Document/Tasdiklangan/Word", filename)
+
+
+def signed_pdf_order_upload_path(instance, filename):
+    return _build_path("Document/Tasdiklangan/Pdf", filename)
+
+
+def attachment_upload_path(instance, filename):
+    return _build_path("Document/QoshimchaFayllar", filename)
+
+
+def price_analysis_upload_path(instance, filename):
+    return _build_path("Document/NarxTahlili", filename)
+
+
+def org_info_upload_path(instance, filename):
+    return _build_path("Document/TijoriyTaklif/ORG/", filename)
+
+
+def stat_upload_path(instance, filename):
+    return _build_path("Document/TijoriyTaklif/Stat/", filename)
+
+
+def tk_file_upload_path(instance, filename):
+    return _build_path("Document/TijoriyTaklif/TK/", filename)
+
+
+
+def appeal_letter_doc_upload_path(instance, filename):
+    return _build_path("Document/MurojaatXati/Doc/", filename)
+
+def appeal_letter_pdf_upload_path(instance, filename):
+    return _build_path("Document/MurojaatXati/Pdf/", filename)
