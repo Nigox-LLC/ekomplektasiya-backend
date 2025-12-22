@@ -35,7 +35,7 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
-    'apps.profiles.account',
+    'apps.profiles',
     'apps.directory.area',
     'apps.directory.measurement',
     'apps.directory.product',
@@ -116,7 +116,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'profil_account.User'
+AUTH_USER_MODEL = 'profiles.User'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
