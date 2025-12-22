@@ -36,11 +36,16 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     'apps.profiles.account',
+    'apps.profiles.staff',
+
     'apps.directory.area',
-    'apps.directory.measurement',
     'apps.directory.product',
-    'apps.directory.organization',
     'apps.directory.warebank',
+    'apps.directory.template',
+    'apps.directory.delivery',
+    'apps.directory.measurement',
+    'apps.directory.purchase',
+    'apps.directory.organization',
 ]
 
 
@@ -79,8 +84,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
