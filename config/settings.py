@@ -34,7 +34,13 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
-    'apps.directory.area'
+    'apps.profiles.staff',
+    'apps.directory.area',
+    'apps.directory.product',
+    'apps.directory.warebank',
+    'apps.directory.measurement',
+    'apps.directory.organization',
+    'apps.documents.plan',
 ]
 
 
