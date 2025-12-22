@@ -1,6 +1,7 @@
 from django.apps import AppConfig
 
 
-class ProductConfig(AppConfig):
+class ProductAppConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'apps.directory.product'
+    verbose_name = 'Malumotlar / Maxsulotlar'
