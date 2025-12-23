@@ -60,7 +60,7 @@ class Order(BaseModel):
         verbose_name = 'Buyurtma'
         verbose_name_plural = 'Buyurtmalar'
 
-        index = [
+        indexes = [
             models.Index(fields=['is_seen']),
             models.Index(fields=['is_cancel']),
             models.Index(fields=['order_type']),
@@ -85,7 +85,7 @@ class StatusOrder(BaseModel):
 class PostedWebSite(BaseModel):
     employee = models.ForeignKey(
         'staff.Employee',
-        on_delete=models.PROTECT, related_name='employees',
+        on_delete=models.PROTECT,
     )
     file = models.FileField(
         upload_to=posted_upload_path, null=True, blank=True
@@ -125,7 +125,7 @@ class OrderProduct(BaseModel):
     price_analysis_quantity = models.FloatField(default=0)
     employee = models.ForeignKey(
         'staff.Employee',
-        on_delete=models.PROTECT, related_name='employees',
+        on_delete=models.PROTECT,
     )
     posted_website = models.ForeignKey(
         PostedWebSite, on_delete=models.PROTECT,
@@ -137,7 +137,7 @@ class WordOrder(BaseModel):
     order = models.ForeignKey(Order, on_delete=models.PROTECT)
     employee = models.ForeignKey(
         'staff.Employee',
-        on_delete=models.PROTECT, related_name='employees',
+        on_delete=models.PROTECT,
     )
     category = models.ForeignKey(
         'measurement.Category', on_delete=models.PROTECT, 
@@ -166,7 +166,7 @@ class SignedWordOrder(BaseModel):
     )
     employee = models.ForeignKey(
         'staff.Employee',
-        on_delete=models.PROTECT, related_name='employees',
+        on_delete=models.PROTECT,
     )
 
 
@@ -176,7 +176,7 @@ class Officer(BaseModel):
     ) 
     employee = models.ForeignKey(
         'staff.Employee',
-        on_delete=models.PROTECT, related_name='employees',
+        on_delete=models.PROTECT,
     )
     is_signed = models.BooleanField(default=False)
     signed_date = models.DateTimeField(null=True, blank=True)
@@ -191,7 +191,7 @@ class Attachment(BaseModel):
     ) 
     employee = models.ForeignKey(
         'staff.Employee',
-        on_delete=models.PROTECT, related_name='employees',
+        on_delete=models.PROTECT,
     )
     category = models.ForeignKey(
         'measurement.Category', on_delete=models.PROTECT, 

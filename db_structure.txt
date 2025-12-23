@@ -1,0 +1,269 @@
+APPS AND MODELS STRUCTURE
+
+APP: DIRECTORY.AREA
+-------------------
+Model: Region
+  - name: CharField(max_length=255, unique=True)
+  - prefix: CharField(max_length=200, unique=True)
+
+Model: District
+  - name: CharField(max_length=255)
+  - region: ForeignKey(Region, on_delete=PROTECT)
+
+APP: DIRECTORY.DELIVERY
+-----------------------
+Model: DeliveryCondition
+  - name: CharField(max_length=255)
+
+APP: DIRECTORY.MEASUREMENT
+--------------------------
+Model: Category
+  - name: CharField(max_length=255, unique=True)
+
+Model: Unit
+  - name: CharField(max_length=255, unique=True)
+  - description: TextField(blank=True)
+
+Model: Size
+  - name: CharField(max_length=255, unique=True)
+  - product_model: ForeignKey(ProductModel, on_delete=PROTECT)
+
+APP: DIRECTORY.ORGANIZATION
+---------------------------
+Model: Department
+  - name: CharField(max_length=255, unique=True)
+  - index_number: CharField(max_length=200)
+
+Model: Position
+  - name: CharField(max_length=255, unique=True)
+
+APP: DIRECTORY.PRODUCT
+----------------------
+Model: ProductType
+  - name: CharField(max_length=255, unique=True)
+
+Model: ProductModel
+  - name: CharField(max_length=255, unique=True)
+  - product_type: ForeignKey(ProductType, on_delete=PROTECT)
+
+APP: DIRECTORY.PURCHASE
+-----------------------
+Model: PurchaseType
+  - name: CharField(max_length=300)
+
+APP: DIRECTORY.TEMPLATE
+-----------------------
+Model: Template
+  - name: CharField(max_length=255)
+  - employee: ForeignKey(Employee, on_delete=PROTECT, related_name='employees')
+  - category: ForeignKey(Category, on_delete=PROTECT)
+  - file: FileField(upload_to=template_upload_path)
+
+APP: DIRECTORY.WAREBANK
+-----------------------
+Model: Bank
+  - mfo: CharField(max_length=50)
+  - stir: CharField(max_length=50)
+  - address: TextField(blank=True)
+  - city: CharField(max_length=100)
+  - short_name: CharField(max_length=100)
+  - name: CharField(max_length=255, unique=True)
+  - region: ForeignKey(Region, on_delete=PROTECT)
+  - district: ForeignKey(District, on_delete=PROTECT)
+  - phone: CharField(max_length=20, blank=True, null=True)
+  - site_url: CharField(max_length=255, blank=True, null=True)
+  - geolocation: CharField(max_length=100, blank=True, null=True)
+
+Model: WareHouse
+  - address: TextField(blank=True)
+  - name: CharField(max_length=255, unique=True)
+  - region: ForeignKey(Region, on_delete=PROTECT)
+  - district: ForeignKey(District, on_delete=PROTECT)
+  - phone: CharField(max_length=20, blank=True, null=True)
+
+APP: DOCUMENTS.ANALYSIS
+-----------------------
+Model: PriceAnalysis
+  - number: CharField(max_length=255)
+  - employee: ForeignKey(Employee, on_delete=PROTECT, related_name='employees')
+  - file: FileField(upload_to=price_analysis_upload_path)
+
+Model: PriceAnalysisCommercial
+  - price_analysis: ForeignKey(PriceAnalysis, on_delete=PROTECT)
+  - commercial: ForeignKey(Commercial, on_delete=PROTECT)
+
+Model: PriceAnalysisItem
+  - price_analysis: ForeignKey(PriceAnalysis, on_delete=PROTECT)
+  - order_product: ForeignKey(OrderProduct, on_delete=PROTECT)
+  - quantity: FloatField
+  - price: FloatField
+  - commercial_item: ManyToManyField(PriceAnalysisCommercial, blank=True)
+
+Model: PriceAnalysisSigned
+  - price_analysis: ForeignKey(PriceAnalysis, on_delete=PROTECT)
+  - employee: ForeignKey(Employee, on_delete=PROTECT, related_name='employees')
+  - is_approved: BooleanField(default=False)
+  - signed_date: DateTimeField(default=timezone.now)
+
+APP: DOCUMENTS.APPEAL
+---------------------
+Model: AppealLetter
+  - number: CharField(max_length=200)
+  - employee: ForeignKey(on_delete=PROTECT)
+  - file_doc: FileField(upload_to=appeal_letter_doc_upload_path, null=True, blank=True)
+  - file_pdf: FileField(upload_to=appeal_letter_pdf_upload_path, null=True, blank=True)
+  - is_approved: BooleanField(default=False)
+
+Model: AppealLetterItem
+  - appeal_letter: ForeignKey(AppealLetter, on_delete=PROTECT)
+  - price_analysis: ForeignKey(PriceAnalysis, on_delete=PROTECT)
+
+Model: AppealLetterSigned
+  - appeal_letter: ForeignKey(AppealLetter, on_delete=PROTECT)
+  - price_analysis: ForeignKey(PriceAnalysis, on_delete=PROTECT)
+  - employee: ForeignKey(Employee, on_delete=PROTECT)
+  - purpose: CharField(max_length=20, choices=PurposeType.choices)
+  - comment: TextField(blank=True)
+  - is_approved: BooleanField(default=False)
+  - signed_date: DateTimeField(default=timezone.now)
+
+APP: DOCUMENTS.COMMERCIAL
+-------------------------
+Model: Commercial
+  - number: CharField(max_length=255)
+  - date: DateTimeField(default=timezone.now)
+  - organization: CharField(max_length=300)
+  - stir: CharField(max_length=20)
+  - delivery_condition: ForeignKey(DeliveryCondition, null=True, blank=True, on_delete=PROTECT)
+  - delivery_day: IntegerField
+  - org_info: FileField(upload_to=org_info_upload_path, null=True, blank=True)
+  - stat: FileField(upload_to=stat_upload_path, null=True, blank=True)
+  - file: FileField(upload_to=tk_file_upload_path, null=True, blank=True)
+  - employee: ForeignKey(Employee, on_delete=PROTECT)
+
+APP: DOCUMENTS.PLAN
+-------------------
+Model: AnnualPlan
+  - for_year: IntegerField
+  - region: ForeignKey(Region, on_delete=PROTECT, related_name='anual_plan')
+  - district: ForeignKey(District, on_delete=PROTECT, related_name='anual_plan')
+
+Model: AnnualPlanItem
+  - name: CharField(max_length=255)
+  - is_approved: BooleanField(default=False)
+  - annual_plan: ForeignKey(AnnualPlan, on_delete=PROTECT)
+
+Model: AnnualPlanItemMonth
+  - item: ForeignKey(AnnualPlanItem, on_delete=PROTECT)
+  - month: PositiveSmallIntegerField(choices=AnnualPlanMonth.choices, verbose_name='Oy')
+  - quantity: FloatField(verbose_name='Miqdori')
+  - summa: FloatField(verbose_name='Summasi')
+
+APP: DOCUMENTS.PURCHASE
+-----------------------
+Model: PurchaseTypeBank
+  - purchase_type: ForeignKey(ProductType, on_delete=PROTECT)
+  - number: CharField(max_length=255)
+  - bank: ForeignKey(Bank, on_delete=PROTECT)
+  - balance: FloatField
+
+Model: PurchaseTypeBankItem
+  - purchase_type_bank: ForeignKey(PurchaseTypeBank, on_delete=PROTECT)
+  - appeal_letter: ForeignKey(AppealLetter)
+  - bank_type: CharField(max_length=25, choices=BankItemType.choices)
+  - employee: ForeignKey(Employee, on_delete=PROTECT)
+  - summa: FloatField
+
+APP: DOCUMENTS.SALES.ORDERS
+---------------------------
+Model: Order
+  - main: ForeignKey(self, on_delete=PROTECT, null=True, blank=True)
+  - incoming_number: CharField(max_length=255, unique=True)
+  - outgoing_number: CharField(max_length=255, unique=True)
+  - incoming_date: DateTimeField(default=timezone.now)
+  - outgoing_date: DateTimeField(default=timezone.now)
+  - communication_type: CharField(choices=CommunicationType.choices, max_length=20)
+  - direction: CharField(max_length=255, null=True, blank=True)
+  - order_type: CharField(choices=OrderType.choices, max_length=20)
+  - region: ForeignKey(Region, on_delete=PROTECT, related_name='orders')
+  - district: ForeignKey(District, on_delete=PROTECT, related_name='orders')
+  - sender: ForeignKey(Employee, on_delete=PROTECT, related_name='sender')
+  - receiver: ForeignKey(Employee, on_delete=PROTECT, related_name='receiver')
+  - comment: TextField(blank=True)
+  - is_cancel: BooleanField(default=False)
+  - is_seen: BooleanField(default=False)
+  - is_approved: BooleanField(default=False)
+
+Model: StatusOrder
+  - order: ForeignKey(Order, on_delete=PROTECT)
+  - employee: ManyToManyField(Employee)
+  - status: CharField(max_length=255)
+
+Model: PostedWebSite
+  - employee: ForeignKey(Employee, on_delete=PROTECT, related_name='employees')
+  - file: FileField(upload_to=posted_upload_path, null=True, blank=True)
+
+Model: OrderProduct
+  - order: ForeignKey(Order, on_delete=PROTECT)
+  - order_product_type: CharField(choices=OrderProductType.choices, max_length=50)
+  - annual_plan: ForeignKey(AnnualPlan, on_delete=PROTECT, null=True, blank=True)
+  - product_name: CharField(max_length=500, null=True, blank=True)
+  - product_type: ForeignKey(ProductType, on_delete=PROTECT, null=True, blank=True)
+  - product_model: ForeignKey(ProductModel, on_delete=PROTECT, null=True, blank=True)
+  - size: ForeignKey(Size, on_delete=PROTECT, null=True, blank=True)
+  - unit: ForeignKey(Unit, on_delete=PROTECT, null=True, blank=True)
+  - quantity: FloatField
+  - comment: TextField(blank=True)
+  - price_analysis_quantity: FloatField(default=0)
+  - employee: ForeignKey(Employee, on_delete=PROTECT, related_name='employees')
+  - posted_website: ForeignKey(PostedWebSite, on_delete=PROTECT, null=True, blank=True)
+
+Model: WordOrder
+  - order: ForeignKey(Order, on_delete=PROTECT)
+  - employee: ForeignKey(Employee, on_delete=PROTECT, related_name='employees')
+  - category: ForeignKey(Category, on_delete=PROTECT, null=True, blank=True)
+  - file: FileField(upload_to=word_order_upload_path, null=True, blank=True)
+  - is_approved: BooleanField(default=False)
+
+Model: SignedWordOrder
+  - word_order: ForeignKey(WordOrder, on_delete=PROTECT)
+  - file_doc: FileField(upload_to=signed_word_order_upload_path, null=True, blank=True)
+  - file_pdf: FileField(upload_to=signed_pdf_order_upload_path, null=True, blank=True)
+  - qr_data: CharField(max_length=300, null=True, blank=True)
+  - employee: ForeignKey(Employee, on_delete=PROTECT, related_name='employees')
+
+Model: Officer
+  - order: ForeignKey(Order, on_delete=PROTECT)
+  - employee: ForeignKey(Employee, on_delete=PROTECT, related_name='employees')
+  - is_signed: BooleanField(default=False)
+  - signed_date: DateTimeField(null=True, blank=True)
+  - purpose: CharField(choices=PurposeType.choices, max_length=25)
+
+Model: Attachment
+  - order: ForeignKey(Order, on_delete=PROTECT)
+  - employee: ForeignKey(Employee, on_delete=PROTECT, related_name='employees')
+  - category: ForeignKey(Category, on_delete=PROTECT, null=True, blank=True)
+  - file: FileField(upload_to=attachment_upload_path)
+
+APP: PROFILES.ACCOUNT
+---------------------
+Model: User
+  - Inherits from AbstractUser
+
+APP: PROFILES.STAFF
+-------------------
+Model: Employee
+  - full_name: CharField(max_length=400, verbose_name="F.I.O")
+  - region: ForeignKey(Region, on_delete=PROTECT, related_name='employees')
+  - district: ForeignKey(District, on_delete=PROTECT, related_name='employees')
+  - department: ForeignKey(Department, on_delete=PROTECT, related_name='employees')
+  - position: ForeignKey(Position, on_delete=PROTECT, related_name='employees')
+  - inn: CharField(max_length=14, unique=True, null=True, blank=True, validators=[_inn_validator], verbose_name="INN")
+  - phone: CharField(max_length=15, unique=True, null=True, blank=True, validators=[_phone_validator], verbose_name="Telefon")
+  - address: TextField(blank=True, verbose_name="Manzil")
+  - birth_date: DateField(null=True, blank=True, verbose_name="Tug'ilgan sana")
+  - passport_series: CharField(max_length=2, null=True, blank=True, verbose_name="Passport seriyasi", validators=[_passport_series_validator])
+  - passport_number: CharField(max_length=7, null=True, blank=True, validators=[_passport_number_validator], verbose_name="Passport raqami")
+  - passport_image: ImageField(null=True, blank=True, upload_to=employee_image_upload_path, verbose_name="Passport nusxasi")
+  - jshshr: CharField(max_length=14, unique=True, null=True, verbose_name="JSHSHIR", blank=True, validators=[_jshshr_validator])
+  - warehouse: ManyToManyField(WareHouse, blank=True)

@@ -8,7 +8,7 @@ class PriceAnalysis(BaseModel):
     number = models.CharField(max_length=255)
     employee = models.ForeignKey(
         'staff.Employee',
-        on_delete=models.PROTECT, related_name='employees',
+        on_delete=models.PROTECT,
     )
     file = models.FileField(
         upload_to=price_analysis_upload_path
@@ -30,7 +30,7 @@ class PriceAnalysisItem(BaseModel):
         PriceAnalysis, on_delete=models.PROTECT
     )
     order_product = models.ForeignKey(
-        'sales.orders.OrderProduct', on_delete=models.PROTECT
+        to='orders.OrderProduct', on_delete=models.PROTECT
     )
     quantity = models.FloatField()
     price = models.FloatField()
@@ -45,7 +45,7 @@ class PriceAnalysisSigned(BaseModel):
     )
     employee = models.ForeignKey(
         'staff.Employee',
-        on_delete=models.PROTECT, related_name='employees',
+        on_delete=models.PROTECT,
     )
     is_approved = models.BooleanField(default=False)
     signed_date = models.DateTimeField(default=timezone.now)
