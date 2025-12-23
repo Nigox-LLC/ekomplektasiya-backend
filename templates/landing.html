@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="uz">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,10 +9,14 @@
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
 
         :root {
-            --primary-bg: #0f172a; /* Slate 900 */
-            --accent-color: #3b82f6; /* Blue 500 */
-            --text-color: #f8fafc; /* Slate 50 */
-            --secondary-text: #94a3b8; /* Slate 400 */
+            --primary-bg: #0f172a;
+            /* Slate 900 */
+            --accent-color: #3b82f6;
+            /* Blue 500 */
+            --text-color: #f8fafc;
+            /* Slate 50 */
+            --secondary-text: #94a3b8;
+            /* Slate 400 */
         }
 
         body {
@@ -127,31 +132,54 @@
             text-decoration: none;
             transition: color 0.3s;
         }
-        
+
         .contact-item a:hover {
             color: var(--text-color);
         }
 
         /* Separator in footer */
         .footer-divider {
-             width: 4px;
-             height: 4px;
-             background-color: var(--accent-color);
-             border-radius: 50%;
-             opacity: 0.5;
+            width: 4px;
+            height: 4px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            opacity: 0.5;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
+
         @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
+
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Responsive */
@@ -160,26 +188,35 @@
                 font-size: 3rem;
                 gap: 1rem;
             }
+
             .contact-row {
                 flex-direction: column;
                 gap: 0.5rem;
             }
+
             header {
                 font-size: 0.9rem;
                 gap: 1rem;
             }
+
             .footer-divider {
                 display: none;
             }
         }
     </style>
 </head>
+
 <body>
 
     <header>
-        <span>ekomplektasiya.uz</span>
+
+        <a href="https://ekomplektasiya.uz" target="_blank" rel="noopener noreferrer">
+            ekomplektasiya.uz
+        </a>
         <span class="divider">|</span>
-        <span>Nigox</span>
+        <a href="https://nigox.uz" target="_blank" rel="noopener noreferrer">
+            Nigox
+        </a>
         <span class="divider">|</span>
         <a href="https://github.com/nigox-llc" target="_blank" rel="noopener noreferrer">
             GitHub
@@ -210,15 +247,15 @@
     <footer>
         <div class="contact-row">
             <div class="contact-item">
-                <span>📞 +998 90 123 45 67</span>
+                <span>📞 +998 91 601 43 33</span>
             </div>
             <div class="footer-divider"></div>
             <div class="contact-item">
-                <a href="https://t.me/ekomplektasiya" target="_blank">✈️ @ekomplektasiya</a>
+                <a href="https://t.me/Botir4333_1" target="_blank">✈️ @Botir4333_1</a>
             </div>
-             <div class="footer-divider"></div>
+            <div class="footer-divider"></div>
             <div class="contact-item">
-                <a href="mailto:info@ekomplektasiya.uz">✉️ info@ekomplektasiya.uz</a>
+                <a href="mailto:alxsoft2018@gmail.com">✉️ alxsoft2018@gmail.com</a>
             </div>
         </div>
     </footer>
@@ -260,4 +297,5 @@
         updateCountdown();
     </script>
 </body>
+
 </html>
