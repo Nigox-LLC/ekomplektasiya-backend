@@ -17,3 +17,12 @@ class AnnualPlanMonth(models.IntegerChoices):
         DECEMBER = 12, _('Dekabr')
 
 
+
+class PurposeType(models.TextChoices):
+    SIGNING = "signing", _("Imzolash")
+    APPROVAL = "approval", _("Kelishish")
+
+
+class BankItemType(models.TextChoices):
+      INCOME = "income", _("Kirim")
+      EXPENSE = "expense", _("Chiqim")
