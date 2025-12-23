@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eKomplektasiya | Coming Soon</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
+
+        :root {
+            --primary-bg: #0f172a; /* Slate 900 */
+            --accent-color: #3b82f6; /* Blue 500 */
+            --text-color: #f8fafc; /* Slate 50 */
+            --secondary-text: #94a3b8; /* Slate 400 */
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+            overflow: hidden;
+        }
+
+        /* Top Header */
+        header {
+            position: absolute;
+            top: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            color: var(--secondary-text);
+            animation: fadeInDown 1s ease-out;
+        }
+
+        header a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        header a:hover {
+            color: var(--accent-color);
+        }
+
+        header span.divider {
+            color: #334155;
+        }
+
+        /* Main Content - Timer */
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .timer-container {
+            display: flex;
+            gap: 2rem;
+            font-size: 5rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .time-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .time-value {
+            background: linear-gradient(135deg, #e2e8f0 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 10px 30px rgba(59, 130, 246, 0.1);
+        }
+
+        .time-label {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--secondary-text);
+            margin-top: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Bottom Footer - Contact */
+        footer {
+            position: absolute;
+            bottom: 3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            font-size: 1rem;
+            color: var(--secondary-text);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .contact-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-item a {
+            color: var(--secondary-text);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .contact-item a:hover {
+            color: var(--text-color);
+        }
+
+        /* Separator in footer */
+        .footer-divider {
+             width: 4px;
+             height: 4px;
+             background-color: var(--accent-color);
+             border-radius: 50%;
+             opacity: 0.5;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .timer-container {
+                font-size: 3rem;
+                gap: 1rem;
+            }
+            .contact-row {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            header {
+                font-size: 0.9rem;
+                gap: 1rem;
+            }
+            .footer-divider {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <span>ekomplektasiya.uz</span>
+        <span class="divider">|</span>
+        <span>Nigox</span>
+        <span class="divider">|</span>
+        <a href="https://github.com/nigox-llc" target="_blank" rel="noopener noreferrer">
+            GitHub
+        </a>
+    </header>
+
+    <main>
+        <div class="timer-container" id="countdown">
+            <div class="time-box">
+                <span class="time-value" id="days">00</span>
+                <span class="time-label">kun</span>
+            </div>
+            <div class="time-box">
+                <span class="time-value" id="hours">00</span>
+                <span class="time-label">soat</span>
+            </div>
+            <div class="time-box">
+                <span class="time-value" id="minutes">00</span>
+                <span class="time-label">daqiqa</span>
+            </div>
+            <div class="time-box">
+                <span class="time-value" id="seconds">00</span>
+                <span class="time-label">soniya</span>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="contact-row">
+            <div class="contact-item">
+                <span>📞 +998 90 123 45 67</span>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="contact-item">
+                <a href="https://t.me/ekomplektasiya" target="_blank">✈️ @ekomplektasiya</a>
+            </div>
+             <div class="footer-divider"></div>
+            <div class="contact-item">
+                <a href="mailto:info@ekomplektasiya.uz">✉️ info@ekomplektasiya.uz</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Set the date we're counting down to (30 days from now for demo purposes)
+        const targetDate = new Date();
+        targetDate.setDate(targetDate.getDate() + 30); // 30 days ahead
+
+        const countdownElement = document.getElementById('countdown');
+        const daysElement = document.getElementById('days');
+        const hoursElement = document.getElementById('hours');
+        const minutesElement = document.getElementById('minutes');
+        const secondsElement = document.getElementById('seconds');
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                // Timer expired
+                clearInterval(interval);
+                countdownElement.innerHTML = "<div style='font-size: 3rem;'>COMING SOON</div>";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            daysElement.innerText = days.toString().padStart(2, '0');
+            hoursElement.innerText = hours.toString().padStart(2, '0');
+            minutesElement.innerText = minutes.toString().padStart(2, '0');
+            secondsElement.innerText = seconds.toString().padStart(2, '0');
+        }
+
+        const interval = setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+</body>
+</html>
