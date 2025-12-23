@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from utils.models.base import BaseModel
-from apps.documents.sales.common.enum import (
+from apps.documents.common.enum import (
     OrderType, CommunicationType, OrderProductType, PurposeType
 )
 from utils.common.path import (

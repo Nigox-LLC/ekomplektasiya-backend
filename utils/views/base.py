@@ -18,8 +18,11 @@ class BaseModelViewSet(ModelViewSet):
     
     serializer_class: Type
     write_serializer_class: Optional[Type] = None
+    retrieve_serializer_class: Optional[Type] = None
     
     def get_serializer_class(self) -> Type:
+        if self.action == 'retrieve' and self.retrieve_serializer_class:
+            return self.retrieve_serializer_class
         if self.action in ['create', 'partial_update'] and self.write_serializer_class:
             return self.write_serializer_class
         return self.serializer_class
