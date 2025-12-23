@@ -175,15 +175,22 @@ SIMPLE_JWT = {
 }
 
 UNFOLD = {
-    "SITE_TITLE": "EKomplektasiya Admin",
+    "SITE_TITLE": "EKomplektasiya | Admin",
     "SITE_HEADER": "EKomplektasiya",
+    "SHOW_HISTORY": True,
     "SITE_URL": "/",
     # "SITE_ICON": {
     #     "light": lambda request: STATIC_URL + "img/logo.svg",  # light mode
     #     "dark": lambda request: STATIC_URL + "img/logo.svg",  # dark mode
     # },
-    "DASHBOARD_CALLBACK": "config.urls.dashboard_callback",
+    "DASHBOARD_CALLBACK": "config.dashboard.dashboard_callback",
     "ENVIRONMENT": "apps.core.utils.environment_callback",
+    "LOGIN": {
+        "title": "EKomplektasiya Tizimi",
+        "description": "Xush kelibsiz! Tizimga kirish uchun login va parolingizni kiriting.",
+        "show_title": True,
+        "show_description": True,
+    },
     "COLORS": {
         "primary": {
             "50": "239 246 255",
