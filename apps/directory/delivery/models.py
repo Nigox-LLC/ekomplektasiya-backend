@@ -8,3 +8,7 @@ class DeliveryCondition(BaseModel):
     class Meta:
         verbose_name = 'Yetkazib berish holati'
         verbose_name_plural = 'Yetkazib berish holatlari'
+
+        indexes = [
+            models.Index(fields=['name'])
+        ]
