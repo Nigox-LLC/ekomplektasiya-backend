@@ -49,14 +49,8 @@ class BaseModel(models.Model):
         ordering = ['-created_at']
         
         indexes = [
-            models.Index(
-                fields=['-created_at'],
-                name='%(app_label)s_%(class)s_created_idx'
-            ),
-            models.Index(
-                fields=['-updated_at'],
-                name='%(app_label)s_%(class)s_updated_idx'
-            ),
+            models.Index(fields=['-created_at']),
+            models.Index(fields=['-updated_at']),
         ]
         
         default_permissions = ('add', 'change', 'delete', 'view')

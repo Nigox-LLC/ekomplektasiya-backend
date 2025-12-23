@@ -8,6 +8,7 @@ from utils.common.path import appeal_letter_doc_upload_path, appeal_letter_pdf_u
 class AppealLetter(BaseModel):
     number = models.CharField(max_length=200)
     employee = models.ForeignKey(
+        'staff.Employee',
         on_delete=models.PROTECT
     )
     file_doc = models.FileField(

@@ -20,7 +20,7 @@ class District(BaseModel):
     region = ForeignKey(Region, on_delete=PROTECT)
 
     class Meta:
-        verbose_name = 'Tauman'
+        verbose_name = 'Tuman'
         verbose_name_plural = 'Tumanlar'
         constraints = [
             UniqueConstraint(fields=['region', 'name'], name='area_unique_region_name')

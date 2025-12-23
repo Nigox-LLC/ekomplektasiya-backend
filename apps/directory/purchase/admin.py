@@ -1,10 +1,10 @@
 from django.contrib import admin
 from unfold.admin import ModelAdmin
-from .models import DeliveryCondition
+from .models import PurchaseType
 
 
-@admin.register(DeliveryCondition)
-class DeliveryConditionAdmin(ModelAdmin):
+@admin.register(PurchaseType)
+class PurchaseTypeAdmin(ModelAdmin):
     list_display = ('id', 'name', 'is_active', 'created_at')
     search_fields = ('name',)
     list_filter = ('is_active',)

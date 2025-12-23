@@ -1,9 +1,10 @@
 from django.contrib import admin
+from unfold.admin import ModelAdmin
 from .models import Region, District
 
 
 @admin.register(Region)
-class RegionAdmin(admin.ModelAdmin):
+class RegionAdmin(ModelAdmin):
     list_display = (
         'id',
         'name',
@@ -20,10 +21,11 @@ class RegionAdmin(admin.ModelAdmin):
         'prefix',
     )
     ordering = ('name',)
+    readonly_fields = ('created_at', 'updated_at')
 
 
 @admin.register(District)
-class DistrictAdmin(admin.ModelAdmin):
+class DistrictAdmin(ModelAdmin):
     list_display = (
         'id',
         'name',
@@ -39,4 +41,6 @@ class DistrictAdmin(admin.ModelAdmin):
         'name',
         'region__name',
     )
+    autocomplete_fields = ('region',)
     ordering = ('region', 'name')
+    readonly_fields = ('created_at', 'updated_at')

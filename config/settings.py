@@ -3,6 +3,7 @@ import sys
 import environ
 from pathlib import Path
 from datetime import timedelta
+from django.urls import reverse_lazy
 
 env = environ.Env()
 
@@ -20,6 +21,12 @@ ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])
 
 
 DJANGO_APPS = [
+    'unfold',
+    'unfold.contrib.filters',
+    'unfold.contrib.forms',
+    'unfold.contrib.import_export',
+    'unfold.contrib.guardian',
+    'unfold.contrib.simple_history',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -46,6 +53,13 @@ LOCAL_APPS = [
     'apps.directory.measurement',
     'apps.directory.purchase',
     'apps.directory.organization',
+
+    'apps.documents.analysis',
+    'apps.documents.appeal',
+    'apps.documents.commercial',
+    'apps.documents.plan',
+    'apps.documents.purchase',
+    'apps.documents.sales.orders',
 ]
 
 
@@ -147,4 +161,143 @@ SIMPLE_JWT = {
     'BLACKLIST_AFTER_ROTATION': True,
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'ACCESS_TOKEN_LIFETIME': timedelta(hours=30),
+}
+
+UNFOLD = {
+    "SITE_TITLE": "EKomplektasiya Admin",
+    "SITE_HEADER": "EKomplektasiya",
+    "SITE_URL": "/",
+    # "SITE_ICON": {
+    #     "light": lambda request: STATIC_URL + "img/logo.svg",  # light mode
+    #     "dark": lambda request: STATIC_URL + "img/logo.svg",  # dark mode
+    # },
+    "DASHBOARD_CALLBACK": "config.urls.dashboard_callback",
+    "ENVIRONMENT": "apps.core.utils.environment_callback",
+    "COLORS": {
+        "primary": {
+            "50": "239 246 255",
+            "100": "219 234 254",
+            "200": "191 219 254",
+            "300": "147 197 253",
+            "400": "96 165 250",
+            "500": "59 130 246",
+            "600": "37 99 235",
+            "700": "29 78 216",
+            "800": "30 64 175",
+            "900": "30 58 138",
+            "950": "23 37 84",
+        },
+    },
+    "SIDEBAR": {
+        "show_search": True,
+        "show_all_applications": False,
+        "navigation": [
+            {
+                "title": "Hujjatlar (Documents)",
+                "separator": True,
+                "collapsible": True,
+                "items": [
+                    {
+                        "title": "Buyurtmalar",
+                        "icon": "shopping_cart",
+                        "link": reverse_lazy("admin:orders_order_changelist"),
+                    },
+                    {
+                        "title": "Tijorat takliflari",
+                        "icon": "description",
+                        "link": reverse_lazy("admin:commercial_commercial_changelist"),
+                    },
+                    {
+                        "title": "Narx tahlillari",
+                        "icon": "analytics",
+                        "link": reverse_lazy("admin:analysis_priceanalysis_changelist"),
+                    },
+                    {
+                        "title": "Yillik Reja",
+                        "icon": "calendar_today",
+                        "link": reverse_lazy("admin:plan_annualplan_changelist"),
+                    },
+                    {
+                        "title": "Apelyatsiya Xatlari",
+                        "icon": "gavel",
+                        "link": reverse_lazy("admin:appeal_appealletter_changelist"),
+                    },
+                    {
+                        "title": "Xaridlar (Bank)",
+                        "icon": "account_balance_wallet",
+                        "link": reverse_lazy("admin:doc_purchase_purchasetypebank_changelist"), 
+                    },
+                ],
+            },
+            {
+                "title": "Ma'lumotnomalar (Directory)",
+                "separator": True,
+                "collapsible": True,
+                "items": [
+                    {
+                        "title": "Mahsulotlar",
+                        "icon": "inventory_2",
+                        "link": reverse_lazy("admin:product_productmodel_changelist"), 
+                    },
+                     {
+                        "title": "Mahsulot Turlari",
+                        "icon": "category",
+                        "link": reverse_lazy("admin:product_producttype_changelist"),
+                    },
+                    {
+                        "title": "Kategoriyalar",
+                        "icon": "class",
+                        "link": reverse_lazy("admin:measurement_category_changelist"),
+                    },
+                    {
+                        "title": "O'lchov Birliklari",
+                        "icon": "straighten",
+                        "link": reverse_lazy("admin:measurement_unit_changelist"),
+                    },
+                    {
+                        "title": "Hududlar",
+                        "icon": "location_on",
+                        "link": reverse_lazy("admin:area_region_changelist"),
+                    },
+                    {
+                        "title": "Tashkilotlar",
+                        "icon": "business",
+                        "link": reverse_lazy("admin:organization_department_changelist"),
+                    },
+                     {
+                        "title": "Yetkazib berish",
+                        "icon": "local_shipping",
+                        "link": reverse_lazy("admin:delivery_deliverycondition_changelist"),
+                    },
+                     {
+                        "title": "Banklar & Omborlar",
+                        "icon": "store",
+                        "link": reverse_lazy("admin:warebank_bank_changelist"),
+                    },
+                ],
+            },
+            {
+                "title": "Foydalanuvchilar (Users)",
+                "separator": True,
+                "collapsible": True,
+                "items": [
+                    {
+                        "title": "Xodimlar",
+                        "icon": "badge",
+                        "link": reverse_lazy("admin:staff_employee_changelist"),
+                    },
+                    {
+                        "title": "Tizim foydalanuvchilari",
+                        "icon": "person",
+                        "link": reverse_lazy("admin:profil_account_user_changelist"),
+                    },
+                    {
+                        "title": "Guruhlar",
+                        "icon": "group",
+                        "link": reverse_lazy("admin:auth_group_changelist"),
+                    },
+                ],
+            },
+        ],
+    },
 }

@@ -19,7 +19,7 @@ class PurchaseTypeBankItem(BaseModel):
         PurchaseTypeBank, on_delete=models.PROTECT
     )
     appeal_letter = models.ForeignKey(
-        'appeal.AppealLetter'
+        'appeal.AppealLetter', on_delete=models.PROTECT
     )
     bank_type = models.CharField(
         max_length=25,
