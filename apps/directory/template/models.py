@@ -6,7 +6,7 @@ from utils.common.path import template_upload_path
 class Template(BaseModel):
     name = models.CharField(max_length=255)
     employee = models.ForeignKey(
-        'staff.Employee',
+        'staff.Employee',null=True, blank=True,
         on_delete=models.PROTECT, related_name='employees',
     )
     category = models.ForeignKey(
