@@ -2,6 +2,7 @@ from django.db import models
 from utils.models.base import BaseModel
 from apps.documents.common.enum import AnnualPlanMonth
 
+
 class AnnualPlan(BaseModel):
     for_year = models.IntegerField()
     region = models.ForeignKey(
@@ -23,6 +24,10 @@ class AnnualPlan(BaseModel):
 
 class AnnualPlanItem(BaseModel):
     name = models.CharField(max_length=255)
+    unit = models.ForeignKey(
+        'measurement.Unit', on_delete=models.PROTECT,
+        null=True, blank=True
+    )
     is_approved = models.BooleanField(default=False)
     annual_plan = models.ForeignKey(AnnualPlan, on_delete=models.PROTECT)
 
@@ -42,6 +47,7 @@ class AnnualPlanItemMonth(BaseModel):
         choices=AnnualPlanMonth.choices, verbose_name='Oy',
     )
     quantity = models.FloatField(verbose_name='Miqdori')
+    price = models.FloatField(verbose_name='Narxi')
     summa = models.FloatField(verbose_name='Summasi')
 
     class Meta:

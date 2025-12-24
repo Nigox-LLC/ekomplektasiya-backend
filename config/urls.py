@@ -13,6 +13,7 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='landing.html'), name='landing'),
     path('admin/', admin.site.urls),
     path('api/directory/', include('apps.directory.urls')),
+    path('api/document/', include('apps.documents.urls')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
