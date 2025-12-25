@@ -59,7 +59,7 @@ LOCAL_APPS = [
     'apps.documents.commercial',
     'apps.documents.plan',
     'apps.documents.purchase',
-    'apps.documents.sales.orders',
+    'apps.documents.orders',
 ]
 
 
@@ -243,7 +243,7 @@ UNFOLD = {
                     {
                         "title": "Xaridlar (Bank)",
                         "icon": "account_balance_wallet",
-                        "link": reverse_lazy("admin:doc_purchase_purchasetypebank_changelist"), 
+                        "link": reverse_lazy("admin:doc_purchase_purchasetypebank_changelist"),
                     },
                 ],
             },
@@ -255,9 +255,9 @@ UNFOLD = {
                     {
                         "title": "Mahsulotlar",
                         "icon": "inventory_2",
-                        "link": reverse_lazy("admin:product_productmodel_changelist"), 
+                        "link": reverse_lazy("admin:product_productmodel_changelist"),
                     },
-                     {
+                    {
                         "title": "Mahsulot Turlari",
                         "icon": "category",
                         "link": reverse_lazy("admin:product_producttype_changelist"),
@@ -282,12 +282,12 @@ UNFOLD = {
                         "icon": "business",
                         "link": reverse_lazy("admin:organization_department_changelist"),
                     },
-                     {
+                    {
                         "title": "Yetkazib berish",
                         "icon": "local_shipping",
                         "link": reverse_lazy("admin:delivery_deliverycondition_changelist"),
                     },
-                     {
+                    {
                         "title": "Banklar & Omborlar",
                         "icon": "store",
                         "link": reverse_lazy("admin:warebank_bank_changelist"),
